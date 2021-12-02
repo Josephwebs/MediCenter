@@ -1,0 +1,64 @@
+CREATE TABLE agenda (
+    id              INTEGER NOT NULL,
+    nom_paciente    VARCHAR(10) NOT NULL,
+    nom_medico      VARCHAR(10) NOT NULL,
+    rut_med         VARCHAR(10) NOT NULL,
+    fecha           DATE NOT NULL,
+    hora            DATE NOT NULL,
+    secretario_rut  VARCHAR(10) NOT NULL,
+    paciente_rut    VARCHAR(10) NOT NULL
+);
+
+CREATE UNIQUE INDEX agenda__idx ON
+    agenda (
+        paciente_rut
+    ASC );
+
+ALTER TABLE agenda ADD CONSTRAINT agenda_pk PRIMARY KEY AUTO_ INCREMENT( id );
+
+CREATE TABLE medico (
+    rut           INTEGER NOT NULL,
+    nombre        VARCHAR(30) NOT NULL,
+    especialidad  VARCHAR(30) NOT NULL
+);
+
+ALTER TABLE medico ADD CONSTRAINT medico_pk PRIMARY KEY ( rut );
+
+CREATE TABLE paciente (
+    rut        VARCHAR(10) NOT NULL,
+    nombre     VARCHAR(30) NOT NULL,
+    edad       INTEGER NOT NULL,
+    condicion  VARCHAR(30) NOT NULL,
+    agenda_id  INTEGER NOT NULL
+);
+
+CREATE UNIQUE INDEX paciente__idx ON
+    paciente (
+        agenda_id
+    ASC );
+
+ALTER TABLE paciente ADD CONSTRAINT paciente_pk PRIMARY KEY ( rut );
+
+
+CREATE TABLE secretario (
+    rut     VARCHAR(10) NOT NULL,
+    nombre  VARCHAR(30) NOT NULL,
+    clave   VARCHAR(30) NOT NULL
+);
+
+ALTER TABLE secretario ADD CONSTRAINT secretario_pk PRIMARY KEY ( rut );
+
+ALTER TABLE agenda
+    ADD CONSTRAINT agenda_paciente_fk FOREIGN KEY ( paciente_rut )
+        REFERENCES paciente ( rut );
+
+ALTER TABLE agenda
+    ADD CONSTRAINT agenda_secretario_fk FOREIGN KEY ( secretario_rut )
+        REFERENCES secretario ( rut );
+
+ALTER TABLE paciente
+    ADD CONSTRAINT paciente_agenda_fk FOREIGN KEY ( agenda_id )
+        REFERENCES agenda ( id );
+
+
+
