@@ -4,6 +4,11 @@
  */
 package vista;
 
+import controlador.Registro;
+import javax.swing.JOptionPane;
+import modelo.Paciente;
+import modelo.Secretario;
+
 /**
  *
  * @author José Alcantara
@@ -35,10 +40,10 @@ public class Inicio extends javax.swing.JFrame {
         ventanaRegistrar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        txtClave = new javax.swing.JPasswordField();
+        txtRut = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        iniciarSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,19 +81,19 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
+        txtClave.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        txtRut.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(59, 137, 255));
 
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("INCIAR SESION");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        iniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        iniciarSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iniciarSesion.setText("INCIAR SESION");
+        iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                iniciarSesionMouseClicked(evt);
             }
         });
 
@@ -96,11 +101,11 @@ public class Inicio extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+            .addComponent(iniciarSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(iniciarSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -121,8 +126,8 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField1)
+                            .addComponent(txtClave)
+                            .addComponent(txtRut)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
@@ -134,11 +139,11 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(4, 4, 4)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -169,11 +174,22 @@ public class Inicio extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_ventanaRegistrarMouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        InicioCrud obj = new InicioCrud();
-        obj.setVisible(true);
-        obj.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jLabel4MouseClicked
+    private void iniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciarSesionMouseClicked
+        Registro ctrl = new Registro();
+        String rut = txtRut.getText();
+        String pass = txtClave.getText();
+        
+        Secretario user = ctrl.iniciarSesion(rut);
+        if(pass.equals(user.getClave())){
+            JOptionPane.showMessageDialog(null, "Bienvenido");
+            InicioCrud obj = new InicioCrud();
+            obj.setVisible(true);
+            obj.setLocationRelativeTo(null);
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+        }
+     
+    }//GEN-LAST:event_iniciarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -211,16 +227,16 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel iniciarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtClave;
+    private javax.swing.JTextField txtRut;
     private javax.swing.JLabel ventanaRegistrar;
     // End of variables declaration//GEN-END:variables
 }

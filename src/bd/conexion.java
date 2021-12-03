@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @author José Alcantara
  */
-public class conexion {
+public class Conexion {
     
     public Connection obtenerConexion() {
         Connection connection = null;
@@ -21,7 +21,7 @@ public class conexion {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/medicenter", "root", "1234");
             System.out.println("Conexión exitosa");
         } catch (SQLException e) {
-            System.out.println("Error de conexión" + e.getMessage());
+            System.out.println("Error de conexión " + e.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
