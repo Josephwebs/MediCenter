@@ -54,6 +54,7 @@ public class Inicio extends javax.swing.JFrame {
         ventanaRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         ventanaRegistrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ventanaRegistrar.setText("REGISTRARSE");
+        ventanaRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ventanaRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ventanaRegistrarMouseClicked(evt);
@@ -84,6 +85,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("INCIAR SESION");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
