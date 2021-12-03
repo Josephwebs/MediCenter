@@ -15,7 +15,8 @@ public class Registrarse extends javax.swing.JFrame {
      */
     public Registrarse() {
         initComponents();
-    }
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);    }
 
     /**
      * This method is called from within the constructor to initialize the form.

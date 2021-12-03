@@ -170,7 +170,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         InicioCrud obj = new InicioCrud();
         obj.setVisible(true);
-        obj.setLocationRelativeTo(null);   
+        obj.setLocationRelativeTo(null);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
