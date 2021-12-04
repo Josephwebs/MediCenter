@@ -10,7 +10,7 @@ package modelo;
  * @author Alumno
  */
 public class Secretario {
-      private String rut;
+    static String rut;
     private String nombre;
     private String clave;
 
@@ -18,7 +18,7 @@ public class Secretario {
     }
 
     public Secretario(String rut, String nombre, String clave) {
-        this.rut = rut;
+        Secretario.rut = rut;
         this.nombre = nombre;
         this.clave = clave;
     }
@@ -28,7 +28,7 @@ public class Secretario {
     }
 
     public void setRut(String rut) {
-        this.rut = rut;
+        Secretario.rut = rut;
     }
 
     public String getNombre() {

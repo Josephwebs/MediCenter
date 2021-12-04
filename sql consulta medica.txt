@@ -1,10 +1,10 @@
 CREATE TABLE agenda (
     id              INTEGER NOT NULL,
-    nom_paciente    VARCHAR(10) NOT NULL,
-    nom_medico      VARCHAR(10) NOT NULL,
+    nom_paciente    VARCHAR(30) NOT NULL,
+    nom_medico      VARCHAR(30) NOT NULL,
     rut_med         VARCHAR(10) NOT NULL,
     fecha           DATE NOT NULL,
-    hora            DATE NOT NULL,
+    hora            VARCHAR (5) NOT NULL,
     secretario_rut  VARCHAR(10) NOT NULL,
     paciente_rut    VARCHAR(10) NOT NULL
 );
@@ -14,10 +14,10 @@ CREATE UNIQUE INDEX agenda__idx ON
         paciente_rut
     ASC );
 
-ALTER TABLE agenda ADD CONSTRAINT agenda_pk PRIMARY KEY AUTO_ INCREMENT( id );
+ALTER TABLE agenda ADD CONSTRAINT agenda_pk PRIMARY KEY ( id );
 
 CREATE TABLE medico (
-    rut           INTEGER NOT NULL,
+    rut           VARCHAR(10) NOT NULL,
     nombre        VARCHAR(30) NOT NULL,
     especialidad  VARCHAR(30) NOT NULL
 );
@@ -48,17 +48,29 @@ CREATE TABLE secretario (
 
 ALTER TABLE secretario ADD CONSTRAINT secretario_pk PRIMARY KEY ( rut );
 
-ALTER TABLE agenda
-    ADD CONSTRAINT agenda_paciente_fk FOREIGN KEY ( paciente_rut )
-        REFERENCES paciente ( rut );
+-- Datos de medicos en duro --
 
-ALTER TABLE agenda
-    ADD CONSTRAINT agenda_secretario_fk FOREIGN KEY ( secretario_rut )
-        REFERENCES secretario ( rut );
+insert into medico (rut, nombre, especialidad) values ("7141666-6","Aaron Parejo","Medicina General");
+insert into medico (rut, nombre, especialidad) values ("4955989-5","Hicham Quesada","Pediátrica");
+insert into medico (rut, nombre, especialidad) values ("12794704-K","Diego Lin","Endoscopia");
+insert into medico (rut, nombre, especialidad) values ("21497754-0","Joaquim Palau","Gastroenterología");
+insert into medico (rut, nombre, especialidad) values ("7311908-1","Carmen Amores","Ginegología y Obstetricia");
+insert into medico (rut, nombre, especialidad) values ("16767218-3","Alain Santamaria","Hematología");
+insert into medico (rut, nombre, especialidad) values ("8887601-6","Jean Delgado","Nutricion");
+insert into medico (rut, nombre, especialidad) values ("9946565-4","Nuria Quintero","Dermatologia");
+insert into medico (rut, nombre, especialidad) values ("8848348-0","Isaias Segura","Cardiología");
 
-ALTER TABLE paciente
-    ADD CONSTRAINT paciente_agenda_fk FOREIGN KEY ( agenda_id )
-        REFERENCES agenda ( id );
 
-
-
+insert into medico (rut, nombre, especialidad) values ("5510617-7","Ester Vila","Medicina General");
+insert into medico (rut, nombre, especialidad) values ("6231933-K","Karim Ferrando","Medicina General");
+insert into medico (rut, nombre, especialidad) values ("6490397-7","John Holgado","Medicina General");
+insert into medico (rut, nombre, especialidad) values ("9719932-9","Vanesa Acuña","Endoscopia");
+insert into medico (rut, nombre, especialidad) values ("13516513-1","Hortensia Real","Endoscopia");
+insert into medico (rut, nombre, especialidad) values ("7233505-8","Patricia Muñiz","Ginegología y Obstetricia");
+insert into medico (rut, nombre, especialidad) values ("8039020-3","Felisa Pujol","Ginegología y Obstetricia");
+insert into medico (rut, nombre, especialidad) values ("5209559-K","Maria Araceli Miralles","Ginegología y Obstetricia");
+insert into medico (rut, nombre, especialidad) values ("14191691-2","Leonor Abellan","Ginegología y Obstetricia");
+insert into medico (rut, nombre, especialidad) values ("6797156-6","Rosa Aguado","Nutricion");
+insert into medico (rut, nombre, especialidad) values ("12098731-3","Octavio Peralta","Nutricion");
+insert into medico (rut, nombre, especialidad) values ("13313301-1","Estibaliz Peñalver","Nutricion");
+insert into medico (rut, nombre, especialidad) values ("14787406-5","Ada Llopis","Nutricion");

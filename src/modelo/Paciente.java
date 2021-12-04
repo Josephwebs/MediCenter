@@ -14,13 +14,16 @@ public class Paciente {
     private String nombre;
     private int edad;
     private String condicion;
+    private int agenda_id;
 
-    public Paciente(String rut, String nombre, int edad, String condicion) {
+    public Paciente(String rut, String nombre, int edad, String condicion, int agenda_id) {
         this.rut = rut;
         this.nombre = nombre;
         this.edad = edad;
         this.condicion = condicion;
+        this.agenda_id = agenda_id;
     }
+
 
     public Paciente() {
     }
@@ -55,6 +58,14 @@ public class Paciente {
 
     public void setCondicion(String condicion) {
         this.condicion = condicion;
+    }
+
+    public int getAgenda_id() {
+        return agenda_id;
+    }
+
+    public void setAgenda_id(int agenda_id) {
+        this.agenda_id = agenda_id;
     }
     
     

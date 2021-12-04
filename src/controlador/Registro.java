@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import modelo.Agenda;
+import modelo.Medico;
 import modelo.Paciente;
 import modelo.Secretario;
 
@@ -21,35 +22,63 @@ import modelo.Secretario;
  * @author José Alcantara
  */
 public class Registro {
-        public boolean Agregar(Agenda agenda) {
+        public boolean Agendamiento(Agenda agenda) {
             Date hora, fecha; 
         try {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
 
             fecha = agenda.getFecha();
-            hora = agenda.getHora();
-            String query = "INSERT INTO libro(titulo, autor, publicacion, precio, disponible) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO Agenda(id, nom_paciente, nom_medico, rut_med, fecha, hora, secretario_rut, paciente_rut) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = cnx.prepareStatement(query);
-            stmt.setString(1, agenda.getTitulo());
-            stmt.setString(2, agenda.getAutor());
-            stmt.setDate(3, new java.sql.Date(date.getTime()));
-            stmt.setInt(4, agenda.getPrecio());
-            stmt.setBoolean(5, agenda.isDisponible());
+            stmt.setInt(1, agenda.getId());
+            stmt.setString(2, agenda.getNom_paciente());
+            stmt.setString(3, agenda.getNom_medico());
+            stmt.setString(4, agenda.getRut_med());
+            stmt.setDate(5, new java.sql.Date(fecha.getTime()));
+            stmt.setString(6, agenda.getHora());
+            stmt.setString(7, agenda.getSecretario_rut());
+            stmt.setString(8, agenda.getPaciente_rut());
+
 
             stmt.executeUpdate();
             stmt.close();
             cnx.close();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error SQL al agregar libro" + e.getMessage());
+            System.out.println("Error SQL al agregar agendamiento" + e.getMessage());
             return false;
         } catch (Exception e) {
-            System.out.println("Error al agregar libro" + e.getMessage());
+            System.out.println("Error al agregar Agendamiento" + e.getMessage());
             return false;
         }
     }
-        
+        public boolean agregarPaciente(Paciente paciente) {
+        try {
+            Conexion conexion1 = new Conexion();
+            Connection cnx = conexion1.obtenerConexion();
+
+            String query = "INSERT INTO paciente (rut, nombre, edad, condicion, agenda_id) VALUES (?,?,?,?,?)";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+            stmt.setString(1, paciente.getRut());
+            stmt.setString(2, paciente.getNombre());
+            stmt.setInt(3, paciente.getEdad());
+            stmt.setString(4, paciente.getCondicion());
+            stmt.setInt(5, paciente.getAgenda_id());
+
+
+            stmt.executeUpdate();
+            stmt.close();
+            cnx.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error SQL al agregar paciente" + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            System.out.println("Error al agregar paciente" + e.getMessage());
+            return false;
+        }
+    }        
         public boolean Registrar(Secretario secretario) {
         try {
             Conexion conexion1 = new Conexion();
@@ -101,14 +130,69 @@ public class Registro {
         }
         return user;
     }
-        
+    
+    public Medico encontrarMed(String nombreMedico) {
+        Medico user = new Medico();
+
+        try {
+            Conexion conexion1 = new Conexion();
+            Connection cnx = conexion1.obtenerConexion();
+
+            String query = "SELECT rut FROM medico WHERE nombre = ?";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+            stmt.setString(1, nombreMedico);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                user.setRut(rs.getString("rut"));
+            }
+
+            rs.close();
+            stmt.close();
+            cnx.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL al encontrar rut de medico " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al encontrar rut de medico " + e.getMessage());
+        }
+        return user;
+    }        
+    
+    public int cantidadAgendas(){
+        Agenda user = new Agenda();
+        List ids = new ArrayList();
+        try {
+            Conexion conexion1 = new Conexion();
+            Connection cnx = conexion1.obtenerConexion();
+
+            String query = "SELECT id FROM agenda";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                user.setId(rs.getInt("id"));
+                ids.add(user.getId());
+            }
+
+            rs.close();
+            stmt.close();
+            cnx.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL al encontrar rut de medico " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al encontrar rut de medico " + e.getMessage());
+        }
+        return ids.size();
+    }
         
     public boolean eliminar(int id_agenda) {
         try {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
 
-            String query = "DELETE FROM libro WHERE idlibro=?";
+            String query = "DELETE FROM agenda WHERE id=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
             stmt.setInt(1, id_agenda);
 
@@ -117,10 +201,10 @@ public class Registro {
             cnx.close();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error SQL al eliminar libro" + e.getMessage());
+            System.out.println("Error SQL al eliminar agendamiento" + e.getMessage());
             return false;
         } catch (Exception e) {
-            System.out.println("Error al eliminar libro" + e.getMessage());
+            System.out.println("Error al eliminar agendamiento" + e.getMessage());
             return false;
         }
     }
@@ -132,12 +216,6 @@ public class Registro {
 
             String query = "UPDATE libro set titulo = ?, autor = ?, publicacion = ?, precio = ?, disponible = ? WHERE idlibro=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
-            stmt.setString(1, libro.getTitulo());
-            stmt.setString(2, libro.getAutor());
-            stmt.setDate(3, new java.sql.Date(libro.getPublicacion().getTime()));
-            stmt.setInt(4, libro.getPrecio());
-            stmt.setBoolean(5, libro.isDisponible());
-            stmt.setInt(6, libro.getIdLibro());
 
             stmt.executeUpdate();
             stmt.close();
@@ -152,70 +230,30 @@ public class Registro {
         }
     }
 
-    public Libro buscarPorId(int idLibro) {
-        Libro libro = new Libro();
+    public List<String> buscarMedicos(String condicion) {
+        List<String> lista;
+        lista = new ArrayList<>();
 
         try {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
 
-            String query = "SELECT idlibro, titulo, autor, publicacion, precio, disponible FROM libro WHERE idlibro=?";
+            String query = "SELECT nombre FROM  medico where especialidad = ? ";
             PreparedStatement stmt = cnx.prepareStatement(query);
-            stmt.setInt(1, idLibro);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                libro.setIdLibro(rs.getInt("idlibro"));
-                libro.setTitulo(rs.getString("titulo"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setPublicacion(rs.getDate("publicacion"));
-                libro.setPrecio(rs.getInt("precio"));
-                libro.setDisponible(rs.getBoolean("disponible"));
-
-            }
-
-            rs.close();
-            stmt.close();
-            cnx.close();
-        } catch (SQLException e) {
-            System.out.println("Error SQL al listar libro por id" + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error al listar libro por id" + e.getMessage());
-        }
-        return libro;
-    }
-
-    public List<Libro> buscarTodos() {
-        List<Libro> lista = new ArrayList<>();
-
-        try {
-            Conexion conexion1 = new Conexion();
-            Connection cnx = conexion1.obtenerConexion();
-
-            String query = "SELECT , numerochasis, marca_id, tranmision, precio FROM vehiculo order by numerochasis";
-            PreparedStatement stmt = cnx.prepareStatement(query);
-
+            stmt.setString(1, condicion);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Libro libro = new Libro();
-                libro.setIdLibro(rs.getInt("idlibro"));
-                libro.setTitulo(rs.getString("titulo"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setPublicacion(rs.getDate("publicacion"));
-                libro.setPrecio(rs.getInt("precio"));
-                libro.setDisponible(rs.getBoolean("disponible"));
-
-                lista.add(libro);
+                String marca = rs.getString("nombre");
+                lista.add(marca);
             }
             rs.close();
             stmt.close();
             cnx.close();
         } catch (SQLException e) {
-            System.out.println("Error SQL al listar libros" + e.getMessage());
+            System.out.println("Error SQL al listar medico " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error al listar libros" + e.getMessage());
+            System.out.println("Error al listar medico " + e.getMessage());
         }
         return lista;
     }

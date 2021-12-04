@@ -43,6 +43,7 @@ public class Registrarse extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -76,6 +77,11 @@ public class Registrarse extends javax.swing.JFrame {
 
         txtRut.setBackground(new java.awt.Color(255, 255, 255));
         txtRut.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+        txtRut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRutActionPerformed(evt);
+            }
+        });
 
         txtContraseña.setBackground(new java.awt.Color(255, 255, 255));
         txtContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
@@ -108,6 +114,9 @@ public class Registrarse extends javax.swing.JFrame {
             .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
         );
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setText("(12345678-9)");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,9 +137,11 @@ public class Registrarse extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4))))
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -150,12 +161,14 @@ public class Registrarse extends javax.swing.JFrame {
                     .addComponent(txtNombre)
                     .addComponent(txtContraseña))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,18 +195,23 @@ public class Registrarse extends javax.swing.JFrame {
         Registro ctrl = new Registro();
         Secretario secretario = new Secretario();
         secretario.setRut(txtRut.getText());
-        secretario.setNombre(txtNombre.getText());
-        secretario.setClave(txtContraseña.getText());
-        if (!(txtRut.getText().isEmpty() || txtNombre.getText().isEmpty() || txtContraseña.getText().isEmpty()) && ctrl.Registrar(secretario) ) {
-            JOptionPane.showMessageDialog(null, "Registrado con exito, ahora puedes trabajar con tu usuario");                
+        if (!(txtRut.getText()).contains("-")){
+            JOptionPane.showMessageDialog(null, "Campo de rut incorrecto");
         }else{
-            JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos");
-        }            
+            secretario.setNombre(txtNombre.getText());
+            secretario.setClave(txtContraseña.getText());
+            if (!(txtRut.getText().isEmpty() || txtNombre.getText().isEmpty() || txtContraseña.getText().isEmpty()) && ctrl.Registrar(secretario) ) {
+                JOptionPane.showMessageDialog(null, "Registrado con exito, ahora puedes trabajar con tu usuario");                
+            }else{
+                JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos");
+            }            
+    }
 
-
-        
-        
     }//GEN-LAST:event_btnRegistrarMouseClicked
+
+    private void txtRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutActionPerformed
+
+    }//GEN-LAST:event_txtRutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,6 +256,7 @@ public class Registrarse extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
