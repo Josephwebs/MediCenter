@@ -4,6 +4,12 @@
  */
 package vista;
 
+import controlador.Registro;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author José Alcantara
@@ -27,31 +33,178 @@ public class Editar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cmbHora = new javax.swing.JComboBox<>();
+        btnAgendar = new javax.swing.JButton();
+        txtDia = new javax.swing.JTextField();
+        txtMes = new javax.swing.JTextField();
+        txtAcno = new javax.swing.JTextField();
+        nroFolio = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Medicenter - Editar");
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setDoubleBuffered(false);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/WhatsApp Image 2021-12-01 at 10.56.31 PM_preview_rev_1.png"))); // NOI18N
 
+        jPanel6.setBackground(new java.awt.Color(59, 137, 255));
+        jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Fecha");
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Hora");
+
+        cmbHora.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "15:00", "16:00", "17:00", "18:00" }));
+
+        btnAgendar.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgendar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnAgendar.setText("Editar");
+        btnAgendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendarActionPerformed(evt);
+            }
+        });
+
+        txtDia.setText("dd");
+        txtDia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDiaFocusGained(evt);
+            }
+        });
+        txtDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDiaActionPerformed(evt);
+            }
+        });
+
+        txtMes.setText("mm");
+        txtMes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMesFocusGained(evt);
+            }
+        });
+
+        txtAcno.setText("yyyy");
+        txtAcno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAcnoFocusGained(evt);
+            }
+        });
+
+        nroFolio.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        nroFolio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nroFolio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nroFolioActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Nueva");
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Nueva");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtAcno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nroFolio, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(nroFolio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(17, 17, 17))
+                            .addComponent(jLabel9)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtAcno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(20, 20, 20))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(30, 30, 30)
+                .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(255, 255, 255)
-                .addComponent(jLabel5)
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(147, 147, 147))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -62,11 +215,74 @@ public class Editar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaFocusGained
+        txtDia.setText("");
+    }//GEN-LAST:event_txtDiaFocusGained
+
+    private void txtDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiaActionPerformed
+
+    private void txtMesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMesFocusGained
+        txtMes.setText("");
+    }//GEN-LAST:event_txtMesFocusGained
+
+    private void txtAcnoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAcnoFocusGained
+        txtAcno.setText("");
+    }//GEN-LAST:event_txtAcnoFocusGained
+
+    private void nroFolioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nroFolioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nroFolioActionPerformed
+
+    private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
+        String dia, mes, acno,hora, fechaStr;
+        Date fecha;
+
+        dia = txtDia.getText();
+        mes = txtMes.getText();
+        acno = txtAcno.getText();
+
+        if (dia.isEmpty() || mes.isEmpty() || acno.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese fecha", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtDia.requestFocus();
+            return;
+        }
+        fechaStr = dia + "/" + mes + "/" + acno;
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            fecha = formatter1.parse(fechaStr);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese fecha en el formato dd/mm/yyyy", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtDia.requestFocus();
+            return;
+        }
+        hora  = cmbHora.getSelectedItem().toString();
+        if (hora.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese hora", "Validación", JOptionPane.WARNING_MESSAGE);
+            cmbHora.requestFocus();
+            return;
+        }
+        Registro rg = new Registro();
+        try {
+        if (rg.cambiarHora(rg.buscarAgenda(Integer.parseInt(nroFolio.getText())))) {
+            JOptionPane.showMessageDialog(this, "Se actualizo horario agendamiento Nro " + Integer.parseInt(nroFolio.getText()) , "Información", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se actualizo horario agendamiento Nro " +Integer.parseInt(nroFolio.getText()), "Error", JOptionPane.ERROR_MESSAGE);
+        }                    
+        }catch (Exception e){
+            System.out.println("Error : "+ e);
+        }
+
+        
+
+    }//GEN-LAST:event_btnAgendarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,7 +320,19 @@ public class Editar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgendar;
+    private javax.swing.JComboBox<String> cmbHora;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField nroFolio;
+    private javax.swing.JTextField txtAcno;
+    private javax.swing.JTextField txtDia;
+    private javax.swing.JTextField txtMes;
     // End of variables declaration//GEN-END:variables
 }

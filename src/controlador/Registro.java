@@ -23,7 +23,7 @@ import modelo.Secretario;
  */
 public class Registro {
         public boolean Agendamiento(Agenda agenda) {
-            Date hora, fecha; 
+            Date fecha; 
         try {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
@@ -191,7 +191,6 @@ public class Registro {
         try {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
-
             String query = "DELETE FROM agenda WHERE id=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
             stmt.setInt(1, id_agenda);
@@ -208,28 +207,64 @@ public class Registro {
             return false;
         }
     }
-
-    public boolean actualizar(Agenda agenda) {
+   
+    public boolean cambiarHora(Agenda obj) {
+        Date fecha;
+        fecha = obj.getFecha();
         try {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
 
-            String query = "UPDATE libro set titulo = ?, autor = ?, publicacion = ?, precio = ?, disponible = ? WHERE idlibro=?";
+            String query = "UPDATE agenda set fecha = ?, hora = ?fecha = ? WHERE id=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
-
-            stmt.executeUpdate();
+            stmt.setDate(1, new java.sql.Date(fecha.getTime()));
+            stmt.setString(2, obj.getHora());
+            stmt.setInt(3, obj.getId());
+            
             stmt.close();
             cnx.close();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error SQL al actualizar libro" + e.getMessage());
+            System.out.println("Error SQL al actualizar Agenda " + e.getMessage());
             return false;
         } catch (Exception e) {
-            System.out.println("Error al actualizar libro" + e.getMessage());
+            System.out.println("Error al actualizar Agenda " + e.toString() );
             return false;
         }
     }
 
+
+    public Agenda buscarAgenda(int id_agenda) {
+        Agenda agenda = new Agenda();
+        try {
+        Conexion conexion1 = new Conexion();
+            Connection cnx = conexion1.obtenerConexion();
+
+            String query = "SELECT fecha, hora FROM agenda WHERE id=?";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+            stmt.setInt(1, id_agenda);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                agenda.setFecha(rs.getDate("fecha"));
+                agenda.setHora(rs.getString("hora"));
+
+
+            }
+
+            rs.close();
+            stmt.close();
+            cnx.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL al listar libro por id" + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al listar libro por id" + e.getMessage());
+        }
+        return agenda;
+    }
+    
+    
     public List<String> buscarMedicos(String condicion) {
         List<String> lista;
         lista = new ArrayList<>();

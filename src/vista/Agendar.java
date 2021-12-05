@@ -65,6 +65,7 @@ public class Agendar extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Medicenter - Agendar");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setDoubleBuffered(false);
@@ -170,6 +171,12 @@ public class Agendar extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cmbMedicosMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cmbMedicosMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbMedicosMouseReleased(evt);
             }
         });
         cmbMedicos.addActionListener(new java.awt.event.ActionListener() {
@@ -444,8 +451,7 @@ public class Agendar extends javax.swing.JFrame {
         cmbMedicos.setModel(new DefaultComboBoxModel<> (medicos.toArray(new String [0]) ) );
         } catch (Exception e){
             System.out.println("Error " + e);
-        }
-       
+        }    
     }//GEN-LAST:event_cmbMedicosMouseEntered
 
     private void txtDiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaFocusGained
@@ -463,6 +469,14 @@ public class Agendar extends javax.swing.JFrame {
     private void txtDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDiaActionPerformed
+
+    private void cmbMedicosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbMedicosMousePressed
+
+           }//GEN-LAST:event_cmbMedicosMousePressed
+
+    private void cmbMedicosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbMedicosMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMedicosMouseReleased
 
     
     /**
