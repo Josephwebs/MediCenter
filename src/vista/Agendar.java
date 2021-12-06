@@ -419,7 +419,7 @@ public class Agendar extends javax.swing.JFrame {
         Registro rg = new Registro();
         rut_medico = rg.encontrarMed(nom_medico).getRut();
         int agendas = rg.cantidadAgendas();
-        Agenda agenda = new Agenda(agendas + 100, nombre, nom_medico, rut_medico, fecha, hora, txtRut.getText() , paciente.getRut()  );
+        Agenda agenda = new Agenda(agendas + 101, nombre, nom_medico, rut_medico, fecha, hora, txtRut.getText() , paciente.getRut()  );
         
         paciente.setAgenda_id(agenda.getId());
             if (rg.Agendamiento(agenda) && rg.agregarPaciente(paciente)) {

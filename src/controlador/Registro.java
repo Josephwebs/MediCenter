@@ -158,7 +158,33 @@ public class Registro {
         }
         return user;
     }        
-    
+    public List nombresMedicos() {
+        List<String> medicos = new ArrayList();
+        Medico user = new Medico();
+        try {
+            Conexion conexion1 = new Conexion();
+            Connection cnx = conexion1.obtenerConexion();
+
+            String query = "SELECT nombre FROM medico ";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                user.setNombre(rs.getString("nombre"));
+                medicos.add(user.getNombre());
+            }
+
+            rs.close();
+            stmt.close();
+            cnx.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL al encontrar rut de medico " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al encontrar rut de medico " + e.getMessage());
+        }
+        return medicos;
+    }            
     public int cantidadAgendas(){
         Agenda user = new Agenda();
         List ids = new ArrayList();
@@ -186,18 +212,54 @@ public class Registro {
         }
         return ids.size();
     }
-        
+    public List consultarAgendas(){
+        java.util.List<Agenda> lista = new ArrayList<>();
+
+        try {
+            Conexion conexion1 = new Conexion();
+            Connection cnx = conexion1.obtenerConexion();
+
+            String query = "SELECT id, nom_paciente, nom_medico, rut_med, fecha, hora FROM agenda";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Agenda agenda = new Agenda();
+                agenda.setId(rs.getInt("id"));
+                agenda.setNom_paciente(rs.getString("nom_paciente"));
+                agenda.setNom_medico(rs.getString("nom_medico"));
+                agenda.setRut_med(rs.getString("rut_med"));
+                agenda.setFecha(rs.getDate("fecha"));
+                agenda.setHora(rs.getString("hora"));
+                lista.add(agenda);
+            }
+            rs.close();
+            stmt.close();
+            cnx.close();
+        } catch (SQLException e) {
+            System.out.println("Error SQL al listar Vehiculos " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al listar Vehiculos " + e.getMessage());
+        }
+        return lista;
+    }        
     public boolean eliminar(int id_agenda) {
         try {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
             String query = "DELETE FROM agenda WHERE id=?";
+            String sql = "DELETE FROM paciente WHERE agenda_id=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
+            PreparedStatement stmt1 = cnx.prepareStatement(sql);
             stmt.setInt(1, id_agenda);
+            stmt1.setInt(1, id_agenda);
 
             stmt.executeUpdate();
+            stmt1.executeUpdate();
             stmt.close();
-            cnx.close();
+            stmt1.close();
+            cnx.close();           
             return true;
         } catch (SQLException e) {
             System.out.println("Error SQL al eliminar agendamiento" + e.getMessage());
@@ -240,16 +302,19 @@ public class Registro {
         Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
 
-            String query = "SELECT fecha, hora FROM agenda WHERE id=?";
+            String query = "SELECT id, nom_paciente, nom_medico, rut_med, fecha, hora FROM agenda WHERE id=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
             stmt.setInt(1, id_agenda);
 
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                agenda.setId(rs.getInt("id"));
+                agenda.setNom_paciente(rs.getString("nom_paciente"));
+                agenda.setNom_medico(rs.getString("nom_medico"));
+                agenda.setRut_med(rs.getString("rut_med"));
                 agenda.setFecha(rs.getDate("fecha"));
                 agenda.setHora(rs.getString("hora"));
-
 
             }
 
@@ -292,4 +357,6 @@ public class Registro {
         }
         return lista;
     }
+    
+    
 }

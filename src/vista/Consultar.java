@@ -4,6 +4,12 @@
  */
 package vista;
 
+import controlador.Registro;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Agenda;
+
 /**
  *
  * @author José Alcantara
@@ -29,6 +35,12 @@ public class Consultar extends javax.swing.JFrame {
 
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDatos = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtFolio = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnBuscarTodos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -37,21 +49,85 @@ public class Consultar extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/WhatsApp Image 2021-12-01 at 10.56.31 PM_preview_rev_1.png"))); // NOI18N
 
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nro Folio", "Paciente", "Doctor", "Rut Doctor", "Fecha", "Hora"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDatos);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Buscar por Nro Folio : ");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnBuscarTodos.setText("Buscar Todos");
+        btnBuscarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel5)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFolio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscarTodos))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(jLabel5)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFolio, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar)
+                        .addComponent(btnBuscarTodos)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -67,6 +143,49 @@ public class Consultar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int id;
+        String nom_paciente, nom_doctor , rut_doctor, hora;
+        Date fecha;
+        DefaultTableModel modelo = (DefaultTableModel) tblDatos.getModel();
+        modelo.setRowCount(0);
+        Registro rg = new Registro();
+        Agenda agenda =rg.buscarAgenda(Integer.parseInt(txtFolio.getText()));
+        id = agenda.getId();
+        nom_paciente = agenda.getNom_paciente();
+        nom_doctor = agenda.getNom_medico();
+        rut_doctor = agenda.getRut_med();
+        fecha = agenda.getFecha();
+        hora = agenda.getHora();
+        modelo.addRow(new Object[]{id, nom_paciente, nom_doctor, rut_doctor,fecha,hora});
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+
+    }//GEN-LAST:event_btnBuscarMouseClicked
+
+    private void btnBuscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTodosActionPerformed
+        int id;
+        String nom_paciente, nom_doctor , rut_doctor, hora;
+        Date fecha;
+        DefaultTableModel modelo = (DefaultTableModel) tblDatos.getModel();
+        modelo.setRowCount(0);
+        Registro rg = new Registro();
+            List<Agenda> lista = rg.consultarAgendas();
+            for (Agenda tmp : lista) {
+                id = tmp.getId();
+                nom_paciente = tmp.getNom_paciente();
+                nom_doctor = tmp.getNom_medico();
+                rut_doctor = tmp.getRut_med();
+                fecha = tmp.getFecha();
+                hora = tmp.getHora();
+
+                modelo.addRow(new Object[]{id, nom_paciente, nom_doctor, rut_doctor,fecha,hora});   
+                
+            }     
+    }//GEN-LAST:event_btnBuscarTodosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,7 +223,13 @@ public class Consultar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarTodos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblDatos;
+    private javax.swing.JTextField txtFolio;
     // End of variables declaration//GEN-END:variables
 }

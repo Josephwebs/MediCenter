@@ -95,6 +95,11 @@ public class InicioCrud extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reporte.png"))); // NOI18N
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/WhatsApp Image 2021-12-01 at 10.56.31 PM_preview_rev_1.png"))); // NOI18N
 
@@ -218,6 +223,11 @@ public class InicioCrud extends javax.swing.JFrame {
         obj.setVisible(true);
         obj.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        Reporte obj = new Reporte();
+        obj.setVisible(true);
+        obj.setLocationRelativeTo(null);     }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments

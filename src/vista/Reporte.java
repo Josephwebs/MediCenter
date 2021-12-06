@@ -4,6 +4,11 @@
  */
 package vista;
 
+import controlador.Registro;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Agenda;
+
 /**
  *
  * @author José Alcantara
@@ -27,21 +32,115 @@ public class Reporte extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDatos = new javax.swing.JTable();
+        btnBuscarTodos = new javax.swing.JButton();
+        labelTotal = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setDoubleBuffered(false);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/WhatsApp Image 2021-12-01 at 10.56.31 PM_preview_rev_1.png"))); // NOI18N
+
+        tblDatos.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Doctores"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDatos);
+
+        btnBuscarTodos.setText("Buscar Todos");
+        btnBuscarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarTodosActionPerformed(evt);
+            }
+        });
+
+        labelTotal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        labelTotal.setForeground(new java.awt.Color(0, 0, 0));
+        labelTotal.setText("Total De Consultas : ");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(btnBuscarTodos))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(199, 199, 199)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(labelTotal)))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscarTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelTotal)
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTodosActionPerformed
+    String nombre;
+        DefaultTableModel modelo = (DefaultTableModel) tblDatos.getModel();
+    modelo.setRowCount(0);        
+    Registro rg = new Registro();
+    List<String> nombres = rg.nombresMedicos();
+    for (String tmp : nombres) {
+        nombre = tmp;
+        modelo.addRow(new Object[]{nombre}); 
+                
+    }
+    int total = rg.cantidadAgendas();
+    labelTotal.setText("Total De Consultas : " + total);
+            
+      
+
+    }//GEN-LAST:event_btnBuscarTodosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +178,11 @@ public class Reporte extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarTodos;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTotal;
+    private javax.swing.JTable tblDatos;
     // End of variables declaration//GEN-END:variables
 }
