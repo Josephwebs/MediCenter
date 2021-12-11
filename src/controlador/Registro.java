@@ -277,12 +277,14 @@ public class Registro {
             Conexion conexion1 = new Conexion();
             Connection cnx = conexion1.obtenerConexion();
 
-            String query = "UPDATE agenda set fecha = ?, hora = ?fecha = ? WHERE id=?";
+            String query = "UPDATE agenda set fecha = ?, hora = ? WHERE id=?";
             PreparedStatement stmt = cnx.prepareStatement(query);
             stmt.setDate(1, new java.sql.Date(fecha.getTime()));
             stmt.setString(2, obj.getHora());
             stmt.setInt(3, obj.getId());
             
+            stmt.executeUpdate();
+
             stmt.close();
             cnx.close();
             return true;
